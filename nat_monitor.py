@@ -10,7 +10,7 @@ from time import sleep
 
 NUM_PINGS = 3
 PING_TIMEOUT = 1
-WAIT_BETWEEN_CHECKS = 5
+WAIT_BETWEEN_CHECKS = 60
 
 
 def main():
