@@ -6,6 +6,7 @@ from collections import namedtuple
 from subprocess import Popen, PIPE
 from sys import stdin
 from time import sleep
+from traceback import print_exc
 
 
 NUM_PINGS = 3
@@ -39,11 +40,14 @@ def main():
 
     # Check all nat instances forever.
     while True:
-        for config in configs:
-            rerouted = nm.reroute_if_necessary(config)
-            if rerouted:
-                log('assumed NAT for route table %s' % config.route_table_id)
-        log('all routes checked successfully.')
+        try:
+            for config in configs:
+                rerouted = nm.reroute_if_necessary(config)
+                if rerouted:
+                    log('assumed NAT for route table %s' % config.route_table_id)
+            log('all routes checked successfully.')
+        except Exception:
+            print_exc()
         sleep(WAIT_BETWEEN_CHECKS)
 
 
