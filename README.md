@@ -22,6 +22,15 @@ eipalloc-f3acbd91,subnet-268a747f,rtb-d3e731b6
 eipalloc-3f3c2c5d,subnet-8f59e4ea,rtb-d8e731bd
 eipalloc-8e5242ec,subnet-2e33e959,rtb-dae731bf
 ```
+IPs are optional, and if they are not included the script will not try to make
+any IP assignments.
+
+```
+subnet-268a747f,rtb-d3e731b6
+subnet-8f59e4ea,rtb-d8e731bd
+subnet-2e33e959,rtb-dae731bf
+```
+
 
 When the script starts it will determine which subnet it is located in, assume
 the corresponding IP and set its host instance as Internet gateway for its

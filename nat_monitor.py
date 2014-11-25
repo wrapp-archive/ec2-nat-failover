@@ -20,7 +20,15 @@ def main():
 
     def read_configs():
         rows = stdin.read().split()
-        return [RouteConfig(*row.split(',')) for row in rows]
+        res = []
+        for row in rows:
+            parts = row.split(',')
+            if len(parts) == 2:
+                config = RouteConfig(None, *parts)
+            else:
+                config = RouteConfig(*parts)
+            res.append(config)
+        return res
 
     def get_host_config():
         host_subnet_ids = host_info.subnet_ids
@@ -58,7 +66,8 @@ class NatMonitor(object):
         self.host_info = host_info
 
     def setup_nat(self, config):
-        self.ec2.assign_elastic_ip(self.host_info.instance_id, config.elastic_ip_allocation_id)
+        if config.elastic_ip_allocation_id:
+            self.ec2.assign_elastic_ip(self.host_info.instance_id, config.elastic_ip_allocation_id)
         self.ec2.set_source_dest_check(self.host_info.instance_id, False)
         self.ec2.replace_route(config.route_table_id, '0.0.0.0/0', self.host_info.instance_id)
         print 'nat setup for this instance.'
