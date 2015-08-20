@@ -56,5 +56,5 @@ EOF
 
 curl -sL https://raw.githubusercontent.com/wrapp/ec2-nat-failover/master/nat_monitor.py > /root/nat_monitor.py
 
-python -u /root/nat_monitor.py < /root/nat_configs.txt | logger -t nat_monitor
+nohup python -u /root/nat_monitor.py < /root/nat_configs.txt | logger -t nat_monitor &
 ```
